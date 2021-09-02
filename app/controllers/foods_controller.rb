@@ -36,7 +36,7 @@ class FoodsController < ApplicationController
     params.require(:food).permit(:name, :comment)
   end
 
-  def set_post
+  def set_food
     @food = current_user.foods.find(params[:id])
     redirect_to root_path, alert: "権限がありません" if @food.nil?
   end
