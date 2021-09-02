@@ -7,11 +7,20 @@
 <p>【コメント】</p>
  <%=  simple_format(h(@food.comment)) %>
 <p>
-<% if current_user.id == @food.user_id %>
-  <p>
+ <p id="food-<%= @food.id %>">
+  <% if @food.liked_by?(current_user) %>
+    <%# 「いいね！」済み（クリックすると「いいね」解除） %>
+    <%= render "like", food: @food %>
+  <% else %>
+    <%# 「いいね」していない（クリックすると「いいね！」にする） %>
+    <%= render "dislike", food: @food %>
+  <% end %>
+ </p>
+   <% if current_user.id == @food.user_id %>
+ <p>
     <%= link_to "編集", edit_food_path(@food) %>
     <%= link_to "削除", food_path(@food), method: :delete, data: { confirm: "削除しますか？" } %>
-  </p>
-<% end %>
+ </p>
+   <% end %>
 </p>
 <p><%= link_to "投稿一覧へ", foods_path %></p>
