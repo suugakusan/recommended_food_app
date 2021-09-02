@@ -3,6 +3,7 @@ class FoodsController < ApplicationController
 
   def index
     @foods = Food.order(:created_at)
+    @foods = Food.includes(:user, :likes).order(:created_at)
   end
 
   def new
